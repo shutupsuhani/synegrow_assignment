@@ -7,3 +7,9 @@ export const taskSchema = Joi.object({
   description: Joi.string().required(),
   status: Joi.string().valid('PENDING', 'IN_PROGRESS', 'COMPLETED').default('PENDING')
 });
+
+export const updateTaskSchema = Joi.object({
+  title: Joi.string().optional(),
+  description: Joi.string().optional(),
+  status: Joi.string().valid('PENDING', 'IN_PROGRESS', 'COMPLETED').optional()
+});
