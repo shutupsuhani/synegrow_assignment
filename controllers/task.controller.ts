@@ -50,63 +50,63 @@ export const getAllTasks = async (req: Request, res: Response) => {
 
 export const getTaskById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params;  // Extracting the task ID from the route parameters
 
-    const task = await prisma.task.findUnique({
+    const task = await prisma.task.findUnique({  // find the task by id 
       where: {
         id,
       },
     });
 
     if (!task) {
-      return res.status(404).json({ message: 'Task not found' });
+      return res.status(404).json({ message: 'Task not found' }); // if task not found
     }
 
-    res.status(200).json(task);
+    res.status(200).json(task);  // return task
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error' }); //else return error
   }
 };
 
 // Update a task
 export const updateTask = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const { title, description, status } = req.body;
+    const { id } = req.params;   // Extracting the task ID from the route parameters
+    const { title, description, status } = req.body;  // Extracting the content from the body 
 
     const existingTask = await prisma.task.findUnique({
-      where: { id },
+      where: { id },   // find the task by id
     });
 
     if (!existingTask) {
-      return res.status(404).json({ message: 'Task not found' });
+      return res.status(404).json({ message: 'Task not found' }); // if task is not found
     }
 
     const updatedTask = await prisma.task.update({
       where: { id },
-      data: {
+      data: {        //updating the task
         ...(title && { title }),
         ...(description && { description }),
         ...(status && { status }),
       },
     });
 
-    res.json(updatedTask);
+    res.json(updatedTask); //return the task
   } catch (error) {
-    console.error('Update Task Error:', error);
+    console.error('Update Task Error:', error);  //else return the error
     res.status(500).json({ message: 'Failed to update task', error });
   }
 };
 
-// Delete a task
+// Delete a task by using id of task
 export const deleteTask = async (req: Request, res: Response) => {
   try {
     await prisma.task.delete({
-      where: { id: req.params.id },
+      where: { id: req.params.id },   // Extracting the task ID from the route parameters
     });
 
-    res.status(204).send();
+    res.status(204).send(); //it sends a 204 No Content response, which basically means the request was successful but there’s nothing to send back.
   } catch (error) {
     res.status(404).json({ message: 'Task not found or failed to delete', error });
   }
