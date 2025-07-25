@@ -40,12 +40,6 @@ cd synegrow_assignment
 
 npm install
 
-### Set up the environment
-
-Create a .env file in the root directory:
-
-DATABASE_URL="prisma+postgres://localhost:51213/?api_key=eyJkYXRhYmFzZVVybCI6InBvc3RncmVzOi8vcG9zdGdyZXM6cG9zdGdyZXNAbG9jYWxob3N0OjUxMjE0L3RlbXBsYXRlMT9zc2xtb2RlPWRpc2FibGUmY29ubmVjdGlvbl9saW1pdD0xJmNvbm5lY3RfdGltZW91dD0wJm1heF9pZGxlX2Nvbm5lY3Rpb25fbGlmZXRpbWU9MCZwb29sX3RpbWVvdXQ9MCZzaW5nbGVfdXNlX2Nvbm5lY3Rpb25zPXRydWUmc29ja2V0X3RpbWVvdXQ9MCIsIm5hbWUiOiJkZWZhdWx0Iiwic2hhZG93RGF0YWJhc2VVcmwiOiJwb3N0Z3JlczovL3Bvc3RncmVzOnBvc3RncmVzQGxvY2FsaG9zdDo1MTIxNS90ZW1wbGF0ZTE_c3NsbW9kZT1kaXNhYmxlJmNvbm5lY3Rpb25fbGltaXQ9MSZjb25uZWN0X3RpbWVvdXQ9MCZtYXhfaWRsZV9jb25uZWN0aW9uX2xpZmV0aW1lPTAmcG9vbF90aW1lb3V0PTAmc2luZ2xlX3VzZV9jb25uZWN0aW9ucz10cnVlJnNvY2tldF90aW1lb3V0PTAifQ"
-
 ### 3. Set up Prisma
 
 npx prisma generate
@@ -69,8 +63,147 @@ Server will run at:
 | DELETE | `/tasks/delete/:id`  | Delete a task by ID   |
 
 
+🔹 GET
+Fetch all tasks.
+
+Request:
+
+GET     /tasks/getall
+
+Response:
+
+[
+
+    {
+            
+            "id": "95206e9d-fedf-4483-84f3-7dae2f2bbf48",
+            "title": "revise dsa",
+            "description": "dsa is must",
+            "status": "COMPLETED",
+            "createdAt": "2025-07-25T15:33:16.640Z",
+            "updatedAt": "2025-07-25T15:33:16.640Z"
+     },
+        
+    {
+           
+            "id": "a105ef2a-0717-442d-9ac1-fd66f02c9e20",
+            "title": "Be prepared For Interview",
+            "description": "Interview Prep for Goldman Sach for ASE",
+            "status": "PENDING",
+            "createdAt": "2025-07-23T17:51:59.216Z",
+            "updatedAt": "2025-07-23T17:51:59.216Z"
+     },
+       
+      {
+           
+            "id": "d0186ac2-40b5-4613-840c-54f97c0e8ad3",
+            "title": "Synegrow Assignment",
+            "description": "Complete all tasks and validate in Postman",
+            "status": "IN_PROGRESS",
+            "createdAt": "2025-07-23T17:51:08.739Z",
+            "updatedAt": "2025-07-25T09:41:01.664Z"
+      }
+  
+]
 
 
+🔹 GET /tasks
+Fetch a task by id.
+
+Request:
+
+GET     /tasks/get/a105ef2a-0717-442d-9ac1-fd66f02c9e20 
+
+Response:
+
+{
+    
+    "id": "a105ef2a-0717-442d-9ac1-fd66f02c9e20",
+    "title": "Be prepared For Interview",
+    "description": "Interview Prep for Goldman Sach for ASE",
+    "status": "PENDING",
+    "createdAt": "2025-07-23T17:51:59.216Z",
+    "updatedAt": "2025-07-23T17:51:59.216Z"
+}
+
+
+
+🔹 POST /tasks
+Create a new task.
+
+Request:
+
+POST   /tasks/create
+
+Content-Type: application/json
+
+{
+  
+   "title": "revise dsa",
+   
+  "description": "dsa is must",
+  
+  "status": "COMPLETED"
+
+}
+
+Response:
+
+{
+   
+    "id": "95206e9d-fedf-4483-84f3-7dae2f2bbf48",
+    "title": "revise dsa",
+    "description": "dsa is must",
+    "status": "COMPLETED",
+    "createdAt": "2025-07-25T15:33:16.640Z",
+    "updatedAt": "2025-07-25T15:33:16.640Z"
+}
+
+
+🔹 PUT /tasks/update/:id
+
+Update a task's title or completion status.
+
+Request:
+
+PUT /tasks/update/d0186ac2-40b5-4613-840c-54f97c0e8ad3
+
+Content-Type: application/json
+
+{
+   
+    "title": "Synegrow Assignment"
+}
+
+Response:
+
+{
+    
+    "id": "d0186ac2-40b5-4613-840c-54f97c0e8ad3",
+    "title": "Synegrow Assignment",
+    "description": "Complete all tasks and validate in Postman",
+    "status": "IN_PROGRESS",
+    "createdAt": "2025-07-23T17:51:08.739Z",
+    "updatedAt": "2025-07-25T15:51:10.653Z"
+}
+
+🔹 DELETE /tasks/delete/:id
+
+Delete a task.
+
+Request:
+
+
+DELETE /tasks/delete/d0186ac2-40b5-4613-840c-54f97c0e8ad3
+
+Response:
+
+
+{
+
+  "message": "Task deleted successfully"
+
+}
 
 
 
